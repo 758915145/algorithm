@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+1、以第一个数为基准。
+2、从右往左找一个比基准小的数 —— data[j]。
+3、从左往右找一个比基准大的数 —— data[i]（i<j）。
+4、交换i和j。
+5、重复2到4，直到i===j。
+6、交换基准和i。
+7、此时基准归位了，将基准的两边进行1到6操作，以此类推。
+ -->
+<script>
+main(9865547123);//输入一串数字
+function main(data){
+	data = data.toString();
+	data = data.split('');//将data转化为数组
+	quicksort(0,data.length-1); //快速排序调用
+	console.log(data.toString().replace(/,/g,''));//排序之后打印出来
+
+	//快速排序
+	function quicksort(left,right){
+		if(left>=right)return;
+		var i=left,
+			j=right,
+			temp = data[left];
+		var t;
+		while (i!=j) {
+			//从右边开始找个比它小的
+			while (data[j]>=temp&&i<j){
+				j--;
+			}
+
+			//再从左边找个比它大的
+			while (data[i]<=temp&&i<j){
+				i++;
+			}
+
+			//交换两个数
+			if(i<j) exchange(i,j);
+		}
+
+		//最终将基准数归位
+		exchange(left,i);
+
+		//归位之后，分别处理两边的数据
+		quicksort(left,i-1);//继续处理左边的，这里是一个递归的过程
+		quicksort(i+1,right);//继续处理右边的，这里是一个递归的过程
+	}
+
+	//交换两个数
+	function exchange(x,y){
+		var t = data[x];
+		data[x] = data[y];
+		data[y] = t;
+	}
+}
+</script>

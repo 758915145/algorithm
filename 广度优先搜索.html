@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!--
+1、确定一个顶点（空顶点也行），然后记录第一个位置的所有可能性。
+2、历遍这个第一个位置的所有可能性，并分别记录(第一个位置+第二个位置)的所有可能性
+3、以此类推，直到没有可能性可历遍。
+ -->
+<script>
+bfs(123);//输入一串数字
+function bfs(data) {
+    data = data.toString();
+	var len = data.length;//数据的规模（长度）
+    var result="";
+    var que = [''];//记录没完成的各种组合
+    while(que.length){
+        v = que.shift();//弹出当前顶点
+
+        //将当前节点的分支节(邻接）点加入到队列中
+        for(var i = 0; i < len; i++){
+            if(v.indexOf(data[i])===-1){
+                result=v+data[i];
+                if(result.length==len){//已经得到一个全排列
+                    console.log(result);
+                }else{
+                    que.push(result);//保存新组合
+                }
+            }
+       }
+   }
+}
+</script>

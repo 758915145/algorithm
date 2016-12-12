@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+1、第一个位置循环n次，代表n个不同的可能。
+2、如果这种可能存在，那么记录下来。
+3、进行下一个位置的循环，由于是递归，所以将会循环到底。
+4、将这种可能回收。
+5、如果是最后一个位置，那么输出结果。
+ -->
+<script>
+main(123);//输入一串数字
+function main(data){
+	data = data.toString();
+	var len = data.length;//数据的规模（长度）
+	var result = [];//用于记录结果
+	var book = [];//用于标记数字是否已经被使用
+	dfs(0);
+
+	//深度优先搜索
+	function dfs(step){
+		if(step===len){
+			console.log(result.toString());
+			return;//关键点7：已经得出结果
+		}
+
+		for(var i=0;i<len;i++){//关键点1：对于这个位置，进行n种不同的尝试
+			if(!book[i]){//关键点2：这个数可以使用
+
+				result[step] = data[i];//关键点3：尝试将一个数放入当前的位置中
+				book[i] = true;//关键点4：标记这个数已经被用掉了，下一次的尝试不能使用这个数了
+
+				dfs(step+1);//关键点5：进行下一个位置的尝试
+
+				book[i] = false;//关键点6：标记这个数已经拿回来了，下一次的尝试可以使用这个数
+			}
+		}
+	}
+}
+</script>
